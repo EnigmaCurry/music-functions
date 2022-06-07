@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "music-functions"
+version = "0.1.0"
+description = ""
+authors = ["EnigmaCurry <ryan@enigmacurry.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pretty_midi = "^0.2.9"
+pychord = "^1.0.0"
+fastapi = "^0.78.0"
+uvicorn = {extras = ["standard"], version = "^0.17.6"}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

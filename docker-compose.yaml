@@ -1,0 +1,33 @@
+version: "3.3"
+
+networks:
+  traefik-proxy:
+    name: traefik-proxy
+
+services:
+  frontend:
+    build:
+      context: frontend
+    container_name: music-functions-frontend
+    networks:
+      - traefik-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.music-functions-frontend.rule=Host(`${MUSIC_FUNCTIONS_TRAEFIK_HOST}`)"
+      - "traefik.http.routers.music-functions-frontend.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-frontend.tls.certresolver=${ACME_CERT_RESOLVER}"
+
+  api:
+    build:
+      context: api
+    container_name: music-functions-api
+    networks:
+      - traefik-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.music-functions-api.rule=Host(`${MUSIC_FUNCTIONS_TRAEFIK_HOST}`) && PathPrefix(`/api/`)"
+      - "traefik.http.routers.music-functions-api.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-api.tls.certresolver=${ACME_CERT_RESOLVER}"
