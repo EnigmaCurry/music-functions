@@ -20,10 +20,10 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 @app.get("/api/chords/sequence")
 def chord_sequence(chords: str):
-    progression, lengths = parse_progression(chords)
+    progression, lengths, name = parse_progression(chords)
     midi = progression_to_midi(progression, lengths)
     return Response(
         content=midi,
         media_type="audio/midi",
-        headers={"Content-Disposition": f'attachment; filename="{chords}.mid"'},
+        headers={"Content-Disposition": f'attachment; filename="{name}.mid"'},
     )

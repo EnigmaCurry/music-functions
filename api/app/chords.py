@@ -12,7 +12,7 @@ class ChordSyntaxError(Exception):
 
 
 def parse_progression(chords):
-    seq = re.split("[_ ]", chords.strip())
+    seq = re.split(r"[ \r\n]+", chords.strip())
     chords = []
     lengths = []
     for item in seq:
@@ -25,7 +25,8 @@ def parse_progression(chords):
             lengths.append(4)
         else:
             lengths.append(int(length))
-    return (ChordProgression(chords), lengths)
+    progression = ChordProgression(chords)
+    return (progression, lengths, " ".join(seq))
 
 
 def progression_to_midi(progression, lengths=[]):

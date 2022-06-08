@@ -15,12 +15,13 @@
         </button>
     </div>
     <div>
-        <h3>Syntax:</h3>
+        <h3>Create a MIDI chord progression:</h3>
         <ul>
-            <li>Enter a sequence of any chords recognized by <a href="https://github.com/yuma-m/pychord">pychord</a> and separated with spaces.</li>
+            <li>Enter a sequence of any chords recognized by <a href="https://github.com/yuma-m/pychord">pychord</a> separated by spaces and/or newlines.</li>
             <li>Each chord may be prefixed by a length, in beats
-                (defaults to 4 beats [1 bar] if not specified.)</li>
-            <li>Click Download MIDI button to generate the MIDI file containing your chords.</li>
+                (defaults to 4 beats, or 1 bar, if not specified.)</li>
+            <li>Click the Download MIDI button to generate the MIDI
+            file containing your chords.</li>
         </ul>
         <table>
             <tr>

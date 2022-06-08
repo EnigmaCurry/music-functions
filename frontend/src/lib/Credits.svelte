@@ -13,20 +13,20 @@ If you discover any bugs, please <a href="https://github.com/EnigmaCurry/music-f
     <li><a target="_blank" href="https://github.com/encode/uvicorn">Uvicorn</a> (BSD 3-clause)</li>
     <li><a target="_blank" href="https://github.com/yuma-m/pychord">pychord</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/craffel/pretty-midi">pretty_midi</a> (MIT)</li>
+    <li><a target="_blank" href="https://github.com/lukemcraig/NegativeHarmonizer">NegativeHarmonizer</a> (No license specified <a href="https://github.com/lukemcraig/NegativeHarmonizer/issues/7">but has been requested</a>)</li>
     <li><a target="_blank" href="https://github.com/vitejs/vite">vite</a> (svelte-template) (MIT)</li>
     <li><a target="_blank" href="https://github.com/sveltejs/svelte">Svelte</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/nickyhajal/svelte-tabs/">svelte-tabs</a> (MIT)</li>
+    <li><a target="_blank" href="https://github.com/thecodejack/svelte-file-dropzone">svelte-file-dropzone</a> (MIT)</li>
     </ul>
 </div>
+<hr/>
 The following licenses and/or credits apply to the third party sources
-that have been redistributed from this server:
+that have been redistributed from this server to your web browser:
 <div class="list">
 <ul>
-    <li><a target="_blank" href="https://github.com/nickyhajal/svelte-tabs/">svelte-tabs</a> was made by <a href="https://svelte.dev/repl/8e68120858e5322272dc9136c4bb79cc?version=3.7.0">Rich Harris</a>, <a href="https://github.com/joeattardi">Joe Attardi</a>, and <a href="https://github.com/d0x2f">Dylan McGannon</a>.
-    The package.json labels the project as MIT licensed, however no
-    actual license text was provided.</li>
-    <li><a target="_blank" href="https://github.com/vitejs/vite">vite</a> (svelte-template)<br/>
-        <pre>
+        <li><a target="_blank" href="https://github.com/vitejs/vite">vite</a> (svelte-template)<br/>
+            <pre>
 MIT License
 
 Copyright (c) 2019-present, Yuxi (Evan) You and Vite contributors
@@ -48,8 +48,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-        </pre>
-    </li>
+            </pre>
+        </li>
+        <li><a target="_blank" href="https://github.com/nickyhajal/svelte-tabs/">svelte-tabs</a> was made by <a href="https://svelte.dev/repl/8e68120858e5322272dc9136c4bb79cc?version=3.7.0">Rich Harris</a>, <a href="https://github.com/joeattardi">Joe Attardi</a>, and <a href="https://github.com/d0x2f">Dylan McGannon</a>.
+            The package.json labels the project as MIT licensed, however no
+            actual license text was provided.</li>
+        <li><a target="_blank" href="https://github.com/thecodejack/svelte-file-dropzone">svelte-file-dropzone</a> is made by <a href="https://github.com/thecodejack">thecodejack</a> and
+            contributors. The package.json labels the project as MIT
+            licensed, however no actual license text was provided.</li>
 </ul>
 </div>
 <style>
@@ -58,10 +64,6 @@ SOFTWARE.
  }
  a {
      color: var(--secondary-color);
- }
- .list {
-     width: 50em;
-     margin: auto;
  }
  ul {
      text-align: left;

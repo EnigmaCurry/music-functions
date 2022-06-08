@@ -1,10 +1,11 @@
 <script>
  import logo from './assets/svelte.png'
  import ChordProgression from './lib/ChordProgression.svelte'
+ import NegativeHarmony from './lib/NegativeHarmony.svelte'
  import Credits from './lib/Credits.svelte'
  import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs'
 
- const tabs = ["#chord-progressions","#credits"]
+ const tabs = ["#chord-progressions","#negative-harmony","#credits"]
 
  let selectedTabIndex = 0
  $: if(tabs.indexOf(location.hash) >= 0) {
@@ -22,11 +23,15 @@
 
   <Tabs selectedTabIndex={selectedTabIndex} on:tabChanged={handleTabChange}>
       <TabList>
-          <Tab>Chord Progression</Tab>
+          <Tab>Chord<br/>Progression</Tab>
+          <Tab>Negative<br/>Harmony</Tab>
           <Tab>Credits</Tab>
       </TabList>
       <TabPanel>
           <ChordProgression />
+      </TabPanel>
+      <TabPanel>
+          <NegativeHarmony />
       </TabPanel>
       <TabPanel>
           <Credits />
@@ -39,9 +44,11 @@
     --background-color: #000000;
     --primary-color: #ffffff;
     --secondary-color: #ff7549;
-    --block-color: #333333;
+    --block-color: #222;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
                  Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.75em;
+    font-size: 1.2em;
     background-color: var(--background-color);
     color: var(--primary-color);
 }
@@ -50,12 +57,8 @@ main {
     text-align: center;
     padding: 1em;
     margin: 0 auto;
+    max-width: 40em;
     background-color: var(--background-color);
-}
-
-img {
-    height: 16rem;
-    width: 16rem;
 }
 
 h1 {
@@ -64,22 +67,23 @@ h1 {
     font-size: 4rem;
     font-weight: 100;
     line-height: 1.1;
-    margin: 2rem auto;
+    margin: auto;
     max-width: 14rem;
 }
 
-p {
+:global(p) {
     max-width: 14rem;
     margin: 1rem auto;
     line-height: 1.35;
 }
 
-a {
+:global(a) {
     color: var(--secondary-color);
 }
 
 :global(.svelte-tabs li.svelte-tabs__tab) {
     color: var(--secondary-color);
+    line-height: 1.2em;
 }
 
 :global(button) {
@@ -89,7 +93,7 @@ a {
     border-radius: 2em;
     border: 2px solid rgba(255, 62, 0, 0);
     outline: none;
-    width: 200px;
+    width: 250px;
     font-variant-numeric: tabular-nums;
     cursor: pointer;
     color: #f7ff00;
@@ -107,6 +111,12 @@ a {
 :global(pre) {
     background-color: var(--block-color);
     padding-left: 2em;
+    line-height: 1em;
+}
+
+:global(.dropzone, textarea) {
+    background-color: var(--block-color) !important;
+    color: var(--primary-color) !important;
 }
 
 @media (min-width: 480px) {
