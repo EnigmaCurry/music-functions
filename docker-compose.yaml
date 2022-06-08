@@ -13,7 +13,7 @@ services:
       - traefik-proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.music-functions-frontend.rule=Host(`${MUSIC_FUNCTIONS_TRAEFIK_HOST}`)"
+      - "traefik.http.routers.music-functions-frontend.rule=Host(`${PRODUCTION_DOMAIN}`)"
       - "traefik.http.routers.music-functions-frontend.entrypoints=websecure"
       - "traefik.http.routers.music-functions-frontend.tls.certresolver=${ACME_CERT_RESOLVER}"
 
@@ -28,6 +28,6 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.music-functions-api.rule=Host(`${MUSIC_FUNCTIONS_TRAEFIK_HOST}`) && PathPrefix(`/api/`)"
+      - "traefik.http.routers.music-functions-api.rule=Host(`${PRODUCTION_DOMAIN}`) && PathPrefix(`/api/`)"
       - "traefik.http.routers.music-functions-api.entrypoints=websecure"
       - "traefik.http.routers.music-functions-api.tls.certresolver=${ACME_CERT_RESOLVER}"

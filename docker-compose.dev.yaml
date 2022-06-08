@@ -5,24 +5,27 @@ networks:
     name: traefik-proxy
 
 services:
-  frontend:
+  frontend-dev:
     build:
       context: frontend
       dockerfile: Dockerfile.dev
-    container_name: music-functions-frontend
+    container_name: music-functions-frontend-dev
     networks:
       - traefik-proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.music-functions-frontend.rule=Host(`${MUSIC_FUNCTIONS_TRAEFIK_HOST}`)"
-      - "traefik.http.routers.music-functions-frontend.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-frontend-dev.rule=Host(`${DEVELOPMENT_DOMAIN}`)"
+      - "traefik.http.routers.music-functions-frontend-dev.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-frontend-dev.tls.certresolver=${ACME_CERT_RESOLVER}"
+      - "traefik.http.middlewares.music-functions-dev-ipwhitelist.ipwhitelist.sourcerange=${DEVELOPER_IP_SOURCERANGE}"
+      - "traefik.http.routers.music-functions-frontend-dev.middlewares=music-functions-dev-ipwhitelist@docker"
     volumes:
-      - /mnt/dev/frontend:/app
+      - ${DEVELOPMENT_MOUNTED_VOLUME}/frontend:/app
 
-  api:
+  api-dev:
     build:
       context: api
-    container_name: music-functions-api
+    container_name: music-functions-api-dev
     networks:
       - traefik-proxy
     security_opt:
@@ -30,8 +33,9 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.music-functions-api.rule=Host(`${MUSIC_FUNCTIONS_TRAEFIK_HOST}`) && PathPrefix(`/api/`)"
-      - "traefik.http.routers.music-functions-api.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-api-dev.rule=Host(`${DEVELOPMENT_DOMAIN}`) && PathPrefix(`/api/`)"
+      - "traefik.http.routers.music-functions-api-dev.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-api-dev.tls.certresolver=${ACME_CERT_RESOLVER}"
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
     volumes:
-      - /mnt/dev/api/app:/code/app
+      - ${DEVELOPMENT_MOUNTED_VOLUME}/api/app:/code/app

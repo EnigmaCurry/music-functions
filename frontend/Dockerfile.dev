@@ -1,11 +1,8 @@
 FROM node:18 AS build
 
 WORKDIR /app
-RUN chown node:node /app
 
 USER node
 
-COPY package.json ./
-COPY package-lock.json ./
-EXPOSE 3001
-CMD npm install
+EXPOSE 3000
+CMD ["/bin/sh","-c","npm install && npm run dev-host"]
