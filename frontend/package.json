@@ -15,7 +15,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "svelte-file-dropzone": "^0.0.15",
+    "svelte-file-dropzone": "github:EnigmaCurry/svelte-file-dropzone#name-prop",
     "svelte-tabs": "github:enigmacurry/svelte-tabs#set-tab-index"
   }
 }

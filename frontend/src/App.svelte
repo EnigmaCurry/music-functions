@@ -23,8 +23,8 @@
 
   <Tabs selectedTabIndex={selectedTabIndex} on:tabChanged={handleTabChange}>
       <TabList>
-          <Tab>Chord<br/>Progression</Tab>
-          <Tab>Negative<br/>Harmony</Tab>
+          <Tab>Chord Progression</Tab>
+          <Tab>Negative Harmony</Tab>
           <Tab>Credits</Tab>
       </TabList>
       <TabPanel>
@@ -80,10 +80,14 @@ h1 {
 :global(a) {
     color: var(--secondary-color);
 }
-
+:global(ul.svelte-tabs__tab-list) {
+    border-bottom: none !important;
+}
 :global(.svelte-tabs li.svelte-tabs__tab) {
     color: var(--secondary-color);
     line-height: 1.2em;
+    max-width: 5em;
+    outline: none !important;
 }
 
 :global(button) {

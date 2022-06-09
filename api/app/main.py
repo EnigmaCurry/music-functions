@@ -1,9 +1,10 @@
 from typing import Union
-from fastapi import FastAPI
-from fastapi.responses import Response
+from fastapi import FastAPI, Form, UploadFile
+from fastapi.responses import Response, StreamingResponse
 from pychord import Chord, ChordProgression
 
 from .chords import parse_progression, progression_to_midi
+from .negative_harmony import negative_harmonizer
 
 app = FastAPI()
 
@@ -26,4 +27,16 @@ def chord_sequence(chords: str):
         content=midi,
         media_type="audio/midi",
         headers={"Content-Disposition": f'attachment; filename="{name}.mid"'},
+    )
+
+
+@app.post("/api/negative-harmony")
+def negative_harmony(
+    midi: UploadFile, tonics: str = Form(), adjust_octaves: bool = Form(False)
+):
+    return StreamingResponse(
+        negative_harmonizer(
+            input_file=midi.file, mirror_positions=tonics, adjust_octaves=adjust_octaves
+        ),
+        media_type="audio/midi",
     )

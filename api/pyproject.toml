@@ -11,6 +11,7 @@ pretty_midi = "^0.2.9"
 pychord = "^1.0.0"
 fastapi = "^0.78.0"
 uvicorn = {extras = ["standard"], version = "^0.17.6"}
+python-multipart = "^0.0.5"
 
 [tool.poetry.dev-dependencies]
 
