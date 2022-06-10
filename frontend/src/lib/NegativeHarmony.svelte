@@ -1,17 +1,21 @@
 <script>
  import Dropzone from "svelte-file-dropzone";
 
-  let files = {
-    accepted: [],
-    rejected: []
-  };
+ let files = {
+     accepted: [],
+     rejected: []
+ };
 
-  function handleFilesSelect(e) {
-    const { acceptedFiles, fileRejections } = e.detail;
-    files.accepted = [...acceptedFiles];
-    files.rejected = [...fileRejections];
-  }
+ function handleFilesSelect(e) {
+     const { acceptedFiles, fileRejections } = e.detail;
+     files.accepted = [...acceptedFiles];
+     files.rejected = [...fileRejections];
+ }
 </script>
+
+<a href="https://youtu.be/DnBr070vcNE?t=1m31s">Watch this video to learn about negative harmony.</a>
+
+<hr/>
 
 <form action="/api/negative-harmony" method="post" enctype="multipart/form-data">
     <Dropzone on:drop={handleFilesSelect} multiple={false} accept="audio/midi" name="midi">Drag and
@@ -36,8 +40,6 @@
     </button>
 </form>
 <br/>
-<hr/>
-<a href="https://youtu.be/DnBr070vcNE?t=1m31s">Watch this video to learn about negative harmony.</a>
 
 <style>
  div {

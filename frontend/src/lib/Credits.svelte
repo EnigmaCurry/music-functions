@@ -11,6 +11,7 @@ If you discover any bugs, please <a href="https://github.com/EnigmaCurry/music-f
     <li><a target="_blank" href="https://github.com/python-poetry/poetry">poetry</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/tiangolo/fastapi">FastAPI</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/encode/uvicorn">Uvicorn</a> (BSD 3-clause)</li>
+    <li><a target="_blank" href="https://github.com/andrew-d/python-multipart">python-multipart</a> (Apache 2.0)</li>
     <li><a target="_blank" href="https://github.com/yuma-m/pychord">pychord</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/craffel/pretty-midi">pretty_midi</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/lukemcraig/NegativeHarmonizer">NegativeHarmonizer</a> (No license specified <a href="https://github.com/lukemcraig/NegativeHarmonizer/issues/7">but has been requested</a>)</li>
