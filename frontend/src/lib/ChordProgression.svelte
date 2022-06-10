@@ -20,6 +20,7 @@
             <li>Enter a sequence of any chords recognized by <a href="https://github.com/yuma-m/pychord">pychord</a> separated by spaces and/or newlines.</li>
             <li>Each chord may be prefixed by a length, in beats
                 (defaults to 4 beats, or 1 bar, if not specified.)</li>
+            <li>Chords may by inverted by specifying the root after a slash (eg. C/E or C/G)</li>
             <li>Click the Download MIDI button to generate the MIDI
             file containing your chords.</li>
         </ul>
@@ -54,6 +55,22 @@
                 </td>
                 <td>
                     C Minor (8 beats)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    C/E
+                </td>
+                <td>
+                    C Major (4 beats, 1st inversion with root of E)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    C/G
+                </td>
+                <td>
+                    C Major (4 beats, 2nd inversion with root of G)
                 </td>
             </tr>
             <tr>
