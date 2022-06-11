@@ -1,13 +1,10 @@
 <script>
-  let count = 0
-  const increment = () => {
-    count += 1
-  }
+ import { chord_progression } from '../stores/chord_progression.js'
 </script>
 
 <form action="/api/chords/sequence">
     <div>
-        <textarea id="chords" name="chords" value="" placeholder="Enter a chord sequence" />
+        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" bind:value={$chord_progression} />
     </div>
     <div>
         <button type="submit">

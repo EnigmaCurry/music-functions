@@ -1,4 +1,6 @@
 <script>
+ import { tonics } from '../stores/negative_harmony.js'
+ import { adjust_octaves } from '../stores/negative_harmony.js'
  import Dropzone from "svelte-file-dropzone";
 
  let files = {
@@ -29,10 +31,10 @@
     <label for="tonics">Keyboard position to mirror (eg. C4 for the middle): <br/><small>(you can
         enter multiple notes to flip each one consecutively; separate by
         space)</small></label><br/>
-    <input type="text" id="tonics" name="tonics" value="C4" />
+    <input type="text" id="tonics" name="tonics" bind:value="{$tonics}" />
     <br/>
     <label for="adjust_octaves">Adjust octaves after flip?</label>
-    <input type="checkbox" id="adjust_octaves" name="adjust_octaves" />
+    <input type="checkbox" id="adjust_octaves" name="adjust_octaves" bind:checked="{$adjust_octaves}" />
     <br/>
     <br/>
     <button type="submit">
