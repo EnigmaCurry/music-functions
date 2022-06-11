@@ -123,6 +123,10 @@ h1 {
     color: var(--primary-color) !important;
 }
 
+:global(.svelte-tabs__tab-panel ul) {
+    text-align: left;
+}
+
 @media (min-width: 480px) {
     h1 {
         max-width: none;

@@ -130,6 +130,13 @@ description = "A library to handle musical chords in python."
 category = "main"
 optional = false
 python-versions = ">=3.6"
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/EnigmaCurry/pychord.git"
+reference = "ordered_inversion"
+resolved_reference = "e1d4efcb8652c58e0d45c65d2d6736687a67baec"
 
 [[package]]
 name = "pydantic"
@@ -272,7 +279,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "46ccd8f66631df4a13952c7cec54d670ac3c1a5f7a13f0df7db285561b22333b"
+content-hash = "ff118a6a4aa60a81bcd5d4b2ffdc0bddc3e7d2ed8ff6660a566e7ee30a0179e3"
 
 [metadata.files]
 anyio = [
@@ -370,10 +377,7 @@ numpy = [
 pretty-midi = [
     {file = "pretty_midi-0.2.9.tar.gz", hash = "sha256:f6a249cb843441e1cb78c4c0a1290948d6f56df7486f7974e20d5c80486dc99e"},
 ]
-pychord = [
-    {file = "pychord-1.0.0-py2.py3-none-any.whl", hash = "sha256:9d0e5758f8c468f361fd6841b1eba3a0022261d1d2423e179dc095b8611369b3"},
-    {file = "pychord-1.0.0.tar.gz", hash = "sha256:95b821ac5dfc9f6935cd1118a409b4887ecc788fa01b43a3a3a38ed44ce3cfb0"},
-]
+pychord = []
 pydantic = [
     {file = "pydantic-1.9.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:c8098a724c2784bf03e8070993f6d46aa2eeca031f8d8a048dff277703e6e193"},
     {file = "pydantic-1.9.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:c320c64dd876e45254bdd350f0179da737463eea41c43bacbee9d8c9d1021f11"},
