@@ -15,10 +15,7 @@
  }
 </script>
 
-<a href="https://youtu.be/DnBr070vcNE?t=1m31s">Watch this video to learn about negative harmony.</a>
-
-<hr/>
-
+<h3>Create Negative Harmony from your existing MIDI:</h3>
 <form action="/api/negative-harmony" method="post" enctype="multipart/form-data">
     <Dropzone on:drop={handleFilesSelect} multiple={false} accept="audio/midi" name="midi">Drag and
         drop a single MIDI file here or click to select a file.</Dropzone>
@@ -27,6 +24,8 @@
     {:else if files.rejected.length}
         ❌ Invalid MIDI file: {files.rejected[0].name}
     {/if}
+    <a href="https://youtu.be/DnBr070vcNE?t=1m31s">Watch this video to learn about negative harmony.</a>
+    <br/>
     <br/>
     <label for="tonics">Keyboard position to mirror (eg. C4 for the middle): <br/><small>(you can
         enter multiple notes to flip each one consecutively; separate by
@@ -37,7 +36,7 @@
     <input type="checkbox" id="adjust_octaves" name="adjust_octaves" bind:checked="{$adjust_octaves}" />
     <br/>
     <br/>
-    <button type="submit">
+    <button class="submit" type="submit">
         Download MIDI
     </button>
 </form>

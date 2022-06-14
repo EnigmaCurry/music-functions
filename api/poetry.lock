@@ -136,7 +136,7 @@ develop = false
 type = "git"
 url = "https://github.com/EnigmaCurry/pychord.git"
 reference = "ordered_inversion"
-resolved_reference = "e1d4efcb8652c58e0d45c65d2d6736687a67baec"
+resolved_reference = "ffe4f09f3bebc80adbf8b7e239c5ce8d0f2b7be9"
 
 [[package]]
 name = "pydantic"

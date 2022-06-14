@@ -16,6 +16,7 @@ import re
 import os
 import datetime
 import io
+from fastapi import HTTPException
 
 from .midi import midi_keys
 
@@ -104,8 +105,8 @@ def negative_harmonizer(
     try:
         tonics = [midi_keys[p] for p in positions]
     except KeyError:
-        raise AssertionError(
-            f"Mirror positions contain invalid keys: {mirror_positions}"
+        raise HTTPException(
+            400, f"Mirror positions contain invalid keys: {mirror_positions}"
         )
     for tonic in tonics:
         in_midi = mido.MidiFile(file=input_file)

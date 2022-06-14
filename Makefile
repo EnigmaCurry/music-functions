@@ -9,6 +9,10 @@ install: build start
 build:
 	docker compose build
 
+.PHONY: build-clean # Build Docker containers from scratch (no cache)
+build-clean:
+	docker compose build --no-cache
+
 .PHONY: build-dev # Build development Docker containers
 build-dev:
 	docker compose --file docker-compose.dev.yaml build
@@ -31,3 +35,11 @@ dev: build-dev start-dev
 .PHONY: sync # Run continuous synchronization to remote server
 sync:
 	./_scripts/sync.sh . $$(docker context inspect | jq -r '.[0]["Endpoints"]["docker"]["Host"]' | sed 's|ssh://||'):$$(./_scripts/dotenv.sh -f .env get DEVELOPMENT_MOUNTED_VOLUME)
+
+.PHONY: logs # Get production logs
+logs:
+	docker logs -f music-functions-api 
+
+.PHONY: logs-dev # Get development logs
+logs-dev:
+	docker logs -f music-functions-api-dev 

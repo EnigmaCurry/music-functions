@@ -1,18 +1,18 @@
 <script>
  import { chord_progression } from '../stores/chord_progression.js'
 </script>
+<h3>Create a MIDI chord progression:</h3>
 
 <form action="/api/chords/sequence">
     <div>
         <textarea id="chords" name="chords" placeholder="Enter a chord sequence" bind:value={$chord_progression} />
     </div>
     <div>
-        <button type="submit">
+        <button class="submit" type="submit">
             Download MIDI
         </button>
     </div>
     <div>
-        <h3>Create a MIDI chord progression:</h3>
         <ul>
             <li>Enter a sequence of any chords recognized by <a target="_new" href="https://github.com/yuma-m/pychord">pychord</a> separated by spaces and/or newlines.</li>
             <li>Each chord may be prefixed by a length, in beats

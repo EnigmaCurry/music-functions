@@ -2,10 +2,11 @@
  import logo from './assets/svelte.png'
  import ChordProgression from './lib/ChordProgression.svelte'
  import NegativeHarmony from './lib/NegativeHarmony.svelte'
+ import EveryBeat from './lib/EveryBeat.svelte'
  import Credits from './lib/Credits.svelte'
  import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs'
 
- const tabs = ["#chord-progressions","#negative-harmony","#credits"]
+ const tabs = ["#chord-progressions","#negative-harmony","#every-beat","#credits"]
 
  let selectedTabIndex = 0
  $: if(tabs.indexOf(location.hash) >= 0) {
@@ -25,6 +26,7 @@
       <TabList>
           <Tab>Chord Progression</Tab>
           <Tab>Negative Harmony</Tab>
+          <Tab>Every Beat</Tab>
           <Tab>Credits</Tab>
       </TabList>
       <TabPanel>
@@ -32,6 +34,9 @@
       </TabPanel>
       <TabPanel>
           <NegativeHarmony />
+      </TabPanel>
+      <TabPanel>
+          <EveryBeat />
       </TabPanel>
       <TabPanel>
           <Credits />
@@ -86,11 +91,11 @@ h1 {
 :global(.svelte-tabs li.svelte-tabs__tab) {
     color: var(--secondary-color);
     line-height: 1.2em;
-    max-width: 5em;
+    max-width: 7em;
     outline: none !important;
 }
 
-:global(button) {
+:global(button.submit) {
     font-family: inherit;
     font-size: inherit;
     padding: 1em 2em;
