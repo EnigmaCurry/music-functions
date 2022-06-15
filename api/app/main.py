@@ -1,7 +1,8 @@
 import subprocess
+import os
 from typing import Union
 from fastapi import FastAPI, Form, UploadFile, HTTPException, Request
-from fastapi.responses import Response, StreamingResponse, FileResponse
+from fastapi.responses import Response, StreamingResponse
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -66,4 +67,13 @@ def every_beat(request: Request, start: int = 0, num_bars: int = 16):
     proc.communicate()
     if proc.returncode != 0:
         raise RuntimeError(f"every_beat returned {proc.returncode}")
-    return FileResponse(path, media_type="audio/midi", filename=filename)
+    try:
+        with open(path, "rb") as f:
+            midi = f.read()
+    finally:
+        os.remove(path)
+    return Response(
+        content=midi,
+        media_type="audio/midi",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
