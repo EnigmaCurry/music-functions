@@ -1,17 +1,24 @@
-from typing import Union
-from fastapi import FastAPI, Form, UploadFile, HTTPException
-from fastapi.responses import Response, StreamingResponse, FileResponse
-from pychord import Chord, ChordProgression
 import subprocess
+from typing import Union
+from fastapi import FastAPI, Form, UploadFile, HTTPException, Request
+from fastapi.responses import Response, StreamingResponse, FileResponse
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from pychord import Chord, ChordProgression
 
 from .chords import parse_progression, progression_to_midi
 from .negative_harmony import negative_harmonizer
 
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 @app.get("/api/chords/sequence")
-def chord_sequence(chords: str):
+@limiter.limit("5/minute")
+def chord_sequence(request: Request, chords: str):
     progression, lengths, name = parse_progression(chords)
     midi = progression_to_midi(progression, lengths)
     return Response(
@@ -22,8 +29,12 @@ def chord_sequence(chords: str):
 
 
 @app.post("/api/negative-harmony")
+@limiter.limit("5/minute")
 def negative_harmony(
-    midi: UploadFile, tonics: str = Form(), adjust_octaves: bool = Form(False)
+    request: Request,
+    midi: UploadFile,
+    tonics: str = Form(),
+    adjust_octaves: bool = Form(False),
 ):
     return StreamingResponse(
         negative_harmonizer(
@@ -34,7 +45,8 @@ def negative_harmony(
 
 
 @app.get("/api/every-beat")
-def every_beat(start: int = 0, num_bars: int = 16):
+@limiter.limit("5/minute")
+def every_beat(request: Request, start: int = 0, num_bars: int = 16):
     if start >= 2**64:
         raise HTTPException(400, "start must be <= 2^64")
     if num_bars > 256:

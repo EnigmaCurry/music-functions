@@ -6,7 +6,7 @@
  }
 </script>
 
-<h3>Generate all 16 step (four instrument) drum loops possible:</h3>
+<h3>Generate all possible 16 step drum loops (four instruments):</h3>
 
 <form action="/api/every-beat">
     <label for="start">Starting position:<br/>    <small>(Any number from 0 up to 2^64 (18446744073709551616))</small></label><br/>

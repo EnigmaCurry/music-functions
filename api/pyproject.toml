@@ -12,6 +12,7 @@ fastapi = "^0.78.0"
 uvicorn = {extras = ["standard"], version = "^0.17.6"}
 python-multipart = "^0.0.5"
 pychord = { git = "https://github.com/EnigmaCurry/pychord.git", branch = "ordered_inversion" }
+slowapi = "^0.1.5"
 [tool.poetry.dev-dependencies]
 
 [build-system]

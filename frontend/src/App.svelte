@@ -26,7 +26,7 @@
       <TabList>
           <Tab>Chord Progression</Tab>
           <Tab>Negative Harmony</Tab>
-          <Tab>Every Beat</Tab>
+          <Tab>Every<br/>Beat</Tab>
           <Tab>Credits</Tab>
       </TabList>
       <TabPanel>
