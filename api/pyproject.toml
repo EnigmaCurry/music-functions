@@ -13,7 +13,9 @@ uvicorn = {extras = ["standard"], version = "^0.17.6"}
 python-multipart = "^0.0.5"
 pychord = { git = "https://github.com/EnigmaCurry/pychord.git", branch = "ordered_inversion" }
 slowapi = "^0.1.5"
+isobar = "^0.1.1"
 [tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

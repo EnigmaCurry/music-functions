@@ -27,6 +27,28 @@ python-versions = ">=3.7"
 tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
 
 [[package]]
+name = "atomicwrites"
+version = "1.4.0"
+description = "Atomic file writes."
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
+name = "attrs"
+version = "21.4.0"
+description = "Classes Without Boilerplate"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[package.extras]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit", "cloudpickle"]
+docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "cloudpickle"]
+tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "cloudpickle"]
+
+[[package]]
 name = "click"
 version = "8.1.3"
 description = "Composable command line interface toolkit"
@@ -91,6 +113,27 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "iniconfig"
+version = "1.1.1"
+description = "iniconfig: brain-dead simple config-ini parsing"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "isobar"
+version = "0.1.1"
+description = "A Python library to express and manipulate musical patterns"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+mido = "*"
+python-osc = "*"
+python-rtmidi = "*"
+
+[[package]]
 name = "limits"
 version = "1.6"
 description = "Rate limiting utilities"
@@ -122,6 +165,29 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
+name = "packaging"
+version = "21.3"
+description = "Core utilities for Python packages"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
+
+[[package]]
+name = "pluggy"
+version = "1.0.0"
+description = "plugin and hook calling mechanisms for python"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+dev = ["pre-commit", "tox"]
+testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
 name = "pretty-midi"
 version = "0.2.9"
 description = "Functions and classes for handling MIDI data conveniently."
@@ -133,6 +199,14 @@ python-versions = "*"
 mido = ">=1.1.16"
 numpy = ">=1.7.0"
 six = "*"
+
+[[package]]
+name = "py"
+version = "1.11.0"
+description = "library with cross-python path, ini-parsing, io, code, log facilities"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "pychord"
@@ -165,6 +239,38 @@ dotenv = ["python-dotenv (>=0.10.4)"]
 email = ["email-validator (>=1.0.3)"]
 
 [[package]]
+name = "pyparsing"
+version = "3.0.9"
+description = "pyparsing module - Classes and methods to define and execute parsing grammars"
+category = "dev"
+optional = false
+python-versions = ">=3.6.8"
+
+[package.extras]
+diagrams = ["railroad-diagrams", "jinja2"]
+
+[[package]]
+name = "pytest"
+version = "7.1.2"
+description = "pytest: simple powerful testing with Python"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
+attrs = ">=19.2.0"
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
+iniconfig = "*"
+packaging = "*"
+pluggy = ">=0.12,<2.0"
+py = ">=1.8.2"
+tomli = ">=1.0.0"
+
+[package.extras]
+testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
+
+[[package]]
 name = "python-dotenv"
 version = "0.20.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -185,6 +291,22 @@ python-versions = "*"
 
 [package.dependencies]
 six = ">=1.4.0"
+
+[[package]]
+name = "python-osc"
+version = "1.8.0"
+description = "Open Sound Control server and client implementations in pure Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "python-rtmidi"
+version = "1.4.9"
+description = "A Python binding for the RtMidi C++ library implemented using Cython."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "pyyaml"
@@ -246,6 +368,14 @@ anyio = ">=3.4.0,<5"
 
 [package.extras]
 full = ["itsdangerous", "jinja2", "python-multipart", "pyyaml", "requests"]
+
+[[package]]
+name = "tomli"
+version = "2.0.1"
+description = "A lil' TOML parser"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "typing-extensions"
@@ -313,7 +443,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "5a696a6936de446a9c60a24da24d7452b4ceb44f4f033c286321abf337704f31"
+content-hash = "e4f724b353a1835ace06327a074e0bacfd66a59c96caeb2f79437934c9a40d5e"
 
 [metadata.files]
 anyio = [
@@ -323,6 +453,14 @@ anyio = [
 asgiref = [
     {file = "asgiref-3.5.2-py3-none-any.whl", hash = "sha256:1d2880b792ae8757289136f1db2b7b99100ce959b2aa57fd69dab783d05afac4"},
     {file = "asgiref-3.5.2.tar.gz", hash = "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"},
+]
+atomicwrites = [
+    {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
+    {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},
+]
+attrs = [
+    {file = "attrs-21.4.0-py2.py3-none-any.whl", hash = "sha256:2d27e3784d7a565d36ab851fe94887c5eccd6a463168875832a1be79c82828b4"},
+    {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
 ]
 click = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
@@ -380,6 +518,13 @@ idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
+iniconfig = [
+    {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
+    {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
+]
+isobar = [
+    {file = "isobar-0.1.1.tar.gz", hash = "sha256:0c8aac4a8fb586f6ea18e8ee76dea8b267f9d8acc27e168f908485e7ade33d8a"},
+]
 limits = [
     {file = "limits-1.6-py3-none-any.whl", hash = "sha256:12ae4449cf7daadee43edf4096acd9cb9f4bfdec3a995aa9fbd0f72b0b9af762"},
     {file = "limits-1.6.tar.gz", hash = "sha256:6c0a57b42647f1141f5a7a0a8479b49e4367c24937a01bd9d4063a595c2dd48a"},
@@ -412,8 +557,20 @@ numpy = [
     {file = "numpy-1.22.4-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0791fbd1e43bf74b3502133207e378901272f3c156c4df4954cad833b1380207"},
     {file = "numpy-1.22.4.zip", hash = "sha256:425b390e4619f58d8526b3dcf656dde069133ae5c240229821f01b5f44ea07af"},
 ]
+packaging = [
+    {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
+    {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
+]
+pluggy = [
+    {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
+    {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
+]
 pretty-midi = [
     {file = "pretty_midi-0.2.9.tar.gz", hash = "sha256:f6a249cb843441e1cb78c4c0a1290948d6f56df7486f7974e20d5c80486dc99e"},
+]
+py = [
+    {file = "py-1.11.0-py2.py3-none-any.whl", hash = "sha256:607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"},
+    {file = "py-1.11.0.tar.gz", hash = "sha256:51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719"},
 ]
 pychord = []
 pydantic = [
@@ -453,12 +610,39 @@ pydantic = [
     {file = "pydantic-1.9.1-py3-none-any.whl", hash = "sha256:4988c0f13c42bfa9ddd2fe2f569c9d54646ce84adc5de84228cfe83396f3bd58"},
     {file = "pydantic-1.9.1.tar.gz", hash = "sha256:1ed987c3ff29fff7fd8c3ea3a3ea877ad310aae2ef9889a119e22d3f2db0691a"},
 ]
+pyparsing = [
+    {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
+    {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
+]
+pytest = [
+    {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
+    {file = "pytest-7.1.2.tar.gz", hash = "sha256:a06a0425453864a270bc45e71f783330a7428defb4230fb5e6a731fde06ecd45"},
+]
 python-dotenv = [
     {file = "python-dotenv-0.20.0.tar.gz", hash = "sha256:b7e3b04a59693c42c36f9ab1cc2acc46fa5df8c78e178fc33a8d4cd05c8d498f"},
     {file = "python_dotenv-0.20.0-py3-none-any.whl", hash = "sha256:d92a187be61fe482e4fd675b6d52200e7be63a12b724abbf931a40ce4fa92938"},
 ]
 python-multipart = [
     {file = "python-multipart-0.0.5.tar.gz", hash = "sha256:f7bb5f611fc600d15fa47b3974c8aa16e93724513b49b5f95c81e6624c83fa43"},
+]
+python-osc = [
+    {file = "python-osc-1.8.0.tar.gz", hash = "sha256:2f8c187c68d239960fb2eddcb5346a62a9b35e64f2de045b3e5e509f475ca73d"},
+    {file = "python_osc-1.8.0-py3-none-any.whl", hash = "sha256:9e2abb2fc9ba2c356f8e951609a03c9c7017bf0bad82cca8490e9b8af9e92a0b"},
+]
+python-rtmidi = [
+    {file = "python-rtmidi-1.4.9.tar.gz", hash = "sha256:bfeb4ed99d0cccf6fa2837566907652ded7adc1c03b69f2160c9de4082301302"},
+    {file = "python_rtmidi-1.4.9-cp36-cp36m-macosx_10_6_intel.whl", hash = "sha256:8f7e154681c5d6ed7228ce8639708592da758ef4c0f575f7020854e07ca6478b"},
+    {file = "python_rtmidi-1.4.9-cp36-cp36m-win32.whl", hash = "sha256:6f495672ec76700400d4dff6f8848dbd52ca60301ed6011a6a1b3a9e95a7a07e"},
+    {file = "python_rtmidi-1.4.9-cp36-cp36m-win_amd64.whl", hash = "sha256:4d75788163327f6ac1f898c29e3b4527da83dbc5bab5a7e614b6a4385fde3231"},
+    {file = "python_rtmidi-1.4.9-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:d201516bb1c64511e7e4de50533f6b828072113e3c26f3f5b657f11b90252073"},
+    {file = "python_rtmidi-1.4.9-cp37-cp37m-win32.whl", hash = "sha256:0f5409e1b2e92cfe377710a0ea5c450c58fda8b52ec4bf4baf517aa731d9f6a6"},
+    {file = "python_rtmidi-1.4.9-cp37-cp37m-win_amd64.whl", hash = "sha256:3d4b7fdb477d8036d51cce281b303686114ae676f1c83693db963ab01db11cf5"},
+    {file = "python_rtmidi-1.4.9-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:5dad7a28035eea9e24aaab4fcb756cd2b78c5b14835aa64750cb4062f77ec169"},
+    {file = "python_rtmidi-1.4.9-cp38-cp38-win32.whl", hash = "sha256:7d27d0a70e85d991f1451f286416cf5ef4514292b027155bf91dcae0b8c0d5d2"},
+    {file = "python_rtmidi-1.4.9-cp38-cp38-win_amd64.whl", hash = "sha256:69907663e0f167fcf3fc1632a792419d0d9d00550f94dca39370ebda3bc999db"},
+    {file = "python_rtmidi-1.4.9-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:04bd95dd86fef3fe8d72838f719d31875f107a842127024bfe276617961eed5d"},
+    {file = "python_rtmidi-1.4.9-cp39-cp39-win32.whl", hash = "sha256:2286ab096a5603430ab1e1a664fe4d96acc40f9443f44c27e911dfad85ea3ac8"},
+    {file = "python_rtmidi-1.4.9-cp39-cp39-win_amd64.whl", hash = "sha256:54d40cb794a6b079105bfb923ab0b4d5f041e9eef5dc5cce25480e4c3e3fc2f6"},
 ]
 pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d4db7c7aef085872ef65a8fd7d6d09a14ae91f691dec3e87ee5ee0539d516f53"},
@@ -514,6 +698,10 @@ sniffio = [
 starlette = [
     {file = "starlette-0.19.1-py3-none-any.whl", hash = "sha256:5a60c5c2d051f3a8eb546136aa0c9399773a689595e099e0877704d5888279bf"},
     {file = "starlette-0.19.1.tar.gz", hash = "sha256:c6d21096774ecb9639acad41b86b7706e52ba3bf1dc13ea4ed9ad593d47e24c7"},
+]
+tomli = [
+    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
+    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},

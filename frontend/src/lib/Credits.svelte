@@ -17,12 +17,14 @@ If you discover any bugs, please <a href="https://github.com/EnigmaCurry/music-f
     <li><a target="_blank" href="https://github.com/yuma-m/pychord">Pychord</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/craffel/pretty-midi">Pretty_midi</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/lukemcraig/NegativeHarmonizer">NegativeHarmonizer</a> (No license specified <a href="https://github.com/lukemcraig/NegativeHarmonizer/issues/7">but has been requested</a>)</li>
+    <li><a target="_blank" href="https://github.com/ideoforms/isobar">Isobar</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/monsieursquirrel/every_beat">Every_Beat</a> (No
     license provided)</li>
     <li><a target="_blank" href="https://github.com/vitejs/vite">Vite</a> (svelte-template) (MIT)</li>
     <li><a target="_blank" href="https://github.com/sveltejs/svelte">Svelte</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/nickyhajal/svelte-tabs/">Svelte-tabs</a> (MIT)</li>
     <li><a target="_blank" href="https://github.com/thecodejack/svelte-file-dropzone">Svelte-file-dropzone</a> (MIT)</li>
+    <li><a target="_blank" href="https://github.com/BenjaminPritchard/js-PianoKeyboard">JS-PianoKeyboard</a> (Public Domain)</li>
     </ul>
 </div>
 <hr/>

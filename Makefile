@@ -43,3 +43,7 @@ logs:
 .PHONY: logs-dev # Get development logs
 logs-dev:
 	docker logs -f music-functions-api-dev 
+
+.PHONY: test # Run unit tests
+test:
+	sh -c "cd api; 	poetry run pytest app/test"

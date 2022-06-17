@@ -115,4 +115,4 @@ def negative_harmonizer(
         in_midi.save(file=out_midi)
         out_midi.seek(0)
         input_file = out_midi
-    yield from out_midi
+    return out_midi.read()

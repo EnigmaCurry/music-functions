@@ -3,6 +3,8 @@
  import ChordProgression from './lib/ChordProgression.svelte'
  import NegativeHarmony from './lib/NegativeHarmony.svelte'
  import EveryBeat from './lib/EveryBeat.svelte'
+ import LSystemMelody from './lib/LSystemMelody.svelte'
+
  import Credits from './lib/Credits.svelte'
  import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs'
 
@@ -106,7 +108,7 @@ h1 {
     font-variant-numeric: tabular-nums;
     cursor: pointer;
     color: #f7ff00;
-    background-color: rgba(255, 84, 0, 0.26);
+    background-color: rgba(255, 206, 182, 0.26);
   }
 
 :global(button:focus) {
