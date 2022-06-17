@@ -154,9 +154,14 @@ def isobar_scales(request: Request):
     return {"scales": [s.name for s in iso.Scale.all()]}
 
 
+chord_strip_length_re = re.compile("^[0-9]+")
+
+
 @app.get("/api/info/chord")
 def chord_info(request: Request, chord: str):
     try:
+        # Strip optional length prefix:
+        chord = chord_strip_length_re.sub("", chord)
         chord = Chord(chord)
         quality_name = chord.quality.quality
     except ValueError as e:
