@@ -11,7 +11,7 @@ pretty_midi = "^0.2.9"
 fastapi = "^0.78.0"
 uvicorn = {extras = ["standard"], version = "^0.17.6"}
 python-multipart = "^0.0.5"
-pychord = { git = "https://github.com/EnigmaCurry/pychord.git", branch = "ordered_inversion" }
+pychord = "^v1.1.0"
 slowapi = "^0.1.5"
 isobar = "^0.1.1"
 [tool.poetry.dev-dependencies]
