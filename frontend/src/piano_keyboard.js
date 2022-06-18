@@ -39,7 +39,7 @@
 export function draw_keyboard(canvas, midi_keys=[]) {
     const red_key_array = []
     for (let i = 0; i < midi_keys.length; i++) {
-        red_key_array.push(midi_keys[i] - 33)
+        red_key_array.push(midi_keys[i] - 21)
     }
     DrawKeyboard(canvas, red_key_array)
 }

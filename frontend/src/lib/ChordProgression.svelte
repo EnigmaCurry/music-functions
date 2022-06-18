@@ -3,6 +3,14 @@
  import { chord_progression } from '../stores/chord_progression.js'
  import { draw_keyboard } from '../piano_keyboard.js'
  import { getClosestWord } from '../string_util.js'
+ import * as Tone from 'tone'
+ import { Piano } from '@tonejs/piano'
+
+ var backslash_is_held = false;
+ var shift_is_held = false;
+ var piano;
+ var piano_keys_held = new Set();
+ let current_chord = null;
 
  const chordCacheKey = "chord_progression/chord_info"
  async function getChordInfo(chord) {
@@ -28,8 +36,17 @@
      }
  }
 
- let current_chord = null;
  async function handleInput(e) {
+     if (e.code === "Backslash") {
+         backslash_is_held = false;
+         if (piano != undefined){
+             for(let k of piano_keys_held)
+                 piano.keyUp({note: k})
+             piano_keys_held.clear()
+         }
+     } else if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+         shift_is_held = false
+     }
      const cursor_position = e.target.selectionStart
      let chord = getClosestWord($chord_progression, cursor_position)
      if (!chord.length || chord == " "){
@@ -39,10 +56,36 @@
      const info = await getChordInfo(chord)
      if (info === "invalid") {
          current_chord = {chord: chord, valid: false}
-         draw_keyboard(keyboard_canvas)
+             draw_keyboard(keyboard_canvas)
      } else {
          current_chord = info
          draw_keyboard(keyboard_canvas, current_chord.components_midi)
+     }
+ }
+
+ async function handleKeypress(e) {
+     if (e.code === "Backslash") {
+         e.preventDefault()
+         if (backslash_is_held)
+             return
+         if (piano === undefined) {
+             await Tone.start()
+             //synth = new Tone.PolySynth(Tone.Synth).toDestination();
+             piano = new Piano({velocities: 1})
+             piano.toDestination()
+             await piano.load()
+         }
+         backslash_is_held = true
+         let t = 0
+         let note_delay = shift_is_held ? 0.35 : 0
+         console.log("playing chord:", current_chord.components_with_pitch)
+         for (let i=0; i<current_chord.components_with_pitch.length; i++){
+             t = t + note_delay
+             piano.keyDown({note:current_chord.components_with_pitch[i], time: "+"+t})
+             piano_keys_held.add(current_chord.components_with_pitch[i])
+         }
+     } else if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
+         shift_is_held = true
      }
  }
 
@@ -57,7 +100,7 @@
 
 <form action="/api/chords/sequence">
     <div>
-        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handleInput} on:click={handleInput} bind:value={$chord_progression} />
+        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handleInput} on:click={handleInput} on:keydown={handleKeypress} bind:value={$chord_progression} />
     </div>
     <div>
         <canvas id="chord_keyboard" width="650" height="72">Your browser does not support the HTML5 canvas tag.</canvas><br/>
@@ -86,6 +129,9 @@
             <li>Chords may by inverted by specifying <a target="_new" href="https://en.wikipedia.org/wiki/Slash_chord">a slash
                 chord</a> (eg. C/E or C/G) or use C/1, C/2, C/3 etc.
                 for 1st, 2nd, or 3rd order inversions. </li>
+            <li>Hold down the backslash key (\) to play the
+            highlighted chord audio. Hold the left or right Shift key
+            as well to play arpeggiated.</li>
             <li>Click the Download MIDI button to generate the MIDI
             file containing your chords.</li>
         </ul>
