@@ -44,6 +44,10 @@ logs:
 logs-dev:
 	docker logs -f music-functions-api-dev 
 
+.PHONY: logs-dev-fe # Get development frontend logs
+logs-dev-fe:
+	docker logs -f music-functions-frontend-dev
+
 .PHONY: test # Run unit tests
 test:
 	sh -c "cd api; 	poetry run pytest app/test"

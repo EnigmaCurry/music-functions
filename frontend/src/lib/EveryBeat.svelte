@@ -1,5 +1,8 @@
 <script>
  import { start, num_bars } from '../stores/every_beat.js'
+ import Markdown from './Markdown.svelte'
+ import help_text from './EveryBeat.md?raw'
+
  const random_start = (event) => {
      event.preventDefault();
      $start = Math.random() * 2**64;
@@ -20,33 +23,8 @@
     <button class="submit" type="submit">
         Download MIDI
     </button>
-    <hr/>
-    <ul>
-        <li>
-            <a href="https://github.com/monsieursquirrel/every_beat">Every Beat</a> is
-            a simple MIDI drum machine that can create (ie. find) any
-            possible 16 step (four instrument) drum sequence.
-        </li>
-        <li>
-            Beats are limited to only these instruments: Kick, Snare,
-            Closed Hat, Open Hat.
-        </li>
-        <li>
-            You can derive any possible 16 step sequence by specifying
-            a unique starting position (from 0 up to 2^64).
-        </li>
-        <li>
-            The number of bars you specify will limit the size of the
-            generated MIDI file (maximum 256 bars). If you specify a
-            value greater than one, the subsequent bars will be
-            modified slightly each time (starting with the open hats)
-        </li>
-        <li>
-            When the starting position is 0, you get the famous <a href="https://en.wikipedia.org/wiki/Amen_break">Amen
-            Break</a>.
-        </li>
-    </ul>
 </form>
+<Markdown source={help_text} />
 <br/>
 
 <style>

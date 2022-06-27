@@ -16,7 +16,6 @@
  }
 
  function handleTabChange(event) {
-     console.log(event)
      location.hash = tabs[event.detail.selectedTabIndex]
  }
 </script>
@@ -78,12 +77,6 @@ h1 {
     max-width: 14rem;
 }
 
-:global(p) {
-    max-width: 14rem;
-    margin: 1rem auto;
-    line-height: 1.35;
-}
-
 :global(a) {
     color: var(--secondary-color);
 }
@@ -119,26 +112,15 @@ h1 {
     background-color: rgba(255, 62, 0, 0.2);
 }
 
-:global(pre) {
-    background-color: var(--block-color);
-    padding-left: 2em;
-    line-height: 1em;
-}
-
 :global(.dropzone, textarea) {
     background-color: var(--block-color) !important;
     color: var(--primary-color) !important;
-}
-
-:global(.svelte-tabs__tab-panel ul) {
-    text-align: left;
 }
 
 @media (min-width: 480px) {
     h1 {
         max-width: none;
     }
-
     p {
         max-width: none;
     }
