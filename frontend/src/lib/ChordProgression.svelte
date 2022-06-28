@@ -121,7 +121,7 @@
     <div>
         <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handleInput} on:click={handleInput} on:keydown={handleKeypress} bind:value={$chord_progression} />
     </div>
-    <div>
+    <div id="chord_info">
         <canvas id="chord_keyboard" width="650" height="72">Your browser does not support the HTML5 canvas tag.</canvas><br/>
         {#if current_chord != null}
             {#if current_chord.valid === false}
@@ -150,5 +150,21 @@
  textarea {
      width: 40em;
      height: 8em;
+ }
+ @media (max-width: 420px) {
+     textarea {
+         width: 20em;
+     }
+     canvas#chord_keyboard {
+         margin-left: -90%;
+     }
+     div#chord_info {
+         transform: scale(0.65)
+     }
+ }
+ @media (max-width: 275px) {
+     div#chord_info {
+         transform: scale(0.5)
+     }
  }
 </style>

@@ -40,5 +40,10 @@
      border-bottom: 2px dashed white;
      padding: .5em 0 .5em 0;
  }
+ @media (max-width: 420px) {
+     div.markdown :global(table) {
+         font-size: 0.5em;
+     }
+ }
 
 </style>
