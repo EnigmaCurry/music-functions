@@ -73,6 +73,11 @@
      updateChord(cursor_position)
  }
 
+ async function handlePointer(e) {
+     const cursor_position = e.target.selectionStart
+     updateChord(cursor_position)
+ }
+
  async function handleKeypress(e) {
      if (e.code === "Backslash") {
          e.preventDefault()
@@ -119,7 +124,7 @@
 
 <form action="/api/chords/sequence">
     <div>
-        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handleInput} on:click={handleInput} on:keydown={handleKeypress} bind:value={$chord_progression} />
+        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handleInput} on:click={handleInput} on:keydown={handleKeypress} on:selectionchange={handlePointer} bind:value={$chord_progression} />
     </div>
     <div id="chord_info">
         <canvas id="chord_keyboard" width="650" height="72">Your browser does not support the HTML5 canvas tag.</canvas><br/>
