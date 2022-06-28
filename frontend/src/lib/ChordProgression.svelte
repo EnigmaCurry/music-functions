@@ -153,12 +153,14 @@
      margin: 1em;
  }
  textarea {
-     width: 40em;
+     width: 25em;
      height: 8em;
+     font-size: 1.5em;
  }
  @media (max-width: 420px) {
      textarea {
-         width: 20em;
+         width: 18em;
+         font-size: 1em;
      }
      canvas#chord_keyboard {
          margin-left: -90%;
