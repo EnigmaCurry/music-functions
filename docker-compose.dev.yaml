@@ -39,3 +39,20 @@ services:
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
     volumes:
       - ${DEVELOPMENT_MOUNTED_VOLUME}/api/app:/code/app
+
+  salamander-piano-samples:
+    build:
+      context: https://github.com/EnigmaCurry/tonejs-piano.git#master
+    container_name: salamander-piano-samples-dev
+    networks:
+      - traefik-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.music-functions-salamander-dev.rule=Host(`${DEVELOPMENT_DOMAIN}`) && (PathPrefix(`/samples/salamander-piano/`))"
+      - "traefik.http.routers.music-functions-salamander-dev.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-salamander-dev.tls.certresolver=${ACME_CERT_RESOLVER}"
+      - "traefik.http.middlewares.music-functions-salamander-strip-path-dev.stripprefix.prefixes=/samples/salamander-piano"
+      - "traefik.http.routers.music-functions-salamander-dev.middlewares=music-functions-salamander-strip-path-dev@docker"

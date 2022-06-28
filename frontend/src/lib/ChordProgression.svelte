@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { chord_progression } from "../stores/chord_progression.js";
   import { draw_keyboard } from "../piano_keyboard.js";
   import { get_closest_word, get_next_word_position } from "../string_util.js";
@@ -8,11 +8,11 @@
   import Markdown from "./Markdown.svelte";
   import help_text from "./ChordProgression.md?raw";
 
-  var backslash_is_held = false;
-  var shift_is_held = false;
-  var tab_is_held = false;
-  var piano;
-  var piano_keys_held = new Set();
+  let backslash_is_held = false;
+  let shift_is_held = false;
+  let tab_is_held = false;
+  let piano;
+  const piano_keys_held = new Set();
   let current_chord = null;
 
   const chord_cache_key = "chord_progression/chord_info";
@@ -83,12 +83,6 @@
   }
 
   async function play_chord() {
-    if (typeof piano === "undefined") {
-      await Tone.start();
-      piano = new Piano({ velocities: 1 });
-      piano.toDestination();
-      await piano.load();
-    }
     let t = 0;
     let note_delay = shift_is_held && !tab_is_held ? 0.35 : 0;
     release_piano_keys();
@@ -134,10 +128,19 @@
     }
   }
 
-  var keyboard_canvas;
+  let keyboard_canvas;
   onMount(async () => {
     keyboard_canvas = document.getElementById("chord_keyboard");
     draw_keyboard(keyboard_canvas);
+    if (typeof piano === "undefined") {
+      await Tone.start();
+      piano = new Piano({ url: "/samples/salamander-piano/", velocities: 1 });
+      piano.toDestination();
+      await piano.load();
+    }
+  });
+  onDestroy(async () => {
+    await release_piano_keys();
   });
 </script>
 

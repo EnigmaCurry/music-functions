@@ -31,3 +31,20 @@ services:
       - "traefik.http.routers.music-functions-api.rule=Host(`${PRODUCTION_DOMAIN}`) && (PathPrefix(`/api/`) || Path(`/docs`) || Path(`/openapi.json`))"
       - "traefik.http.routers.music-functions-api.entrypoints=websecure"
       - "traefik.http.routers.music-functions-api.tls.certresolver=${ACME_CERT_RESOLVER}"
+
+  salamander-piano-samples:
+    build:
+      context: https://github.com/EnigmaCurry/tonejs-piano.git#master
+    container_name: salamander-piano-samples
+    networks:
+      - traefik-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.music-functions-salamander.rule=Host(`${PRODUCTION_DOMAIN}`) && (PathPrefix(`/samples/salamander-piano/`))"
+      - "traefik.http.routers.music-functions-salamander.entrypoints=websecure"
+      - "traefik.http.routers.music-functions-salamander.tls.certresolver=${ACME_CERT_RESOLVER}"
+      - "traefik.http.middlewares.music-functions-salamander-strip-path.stripprefix.prefixes=/samples/salamander-piano"
+      - "traefik.http.routers.music-functions-salamander.middlewares=music-functions-salamander-strip-path@docker"
