@@ -29,7 +29,7 @@
  }
  div.markdown :global(table) {
      margin: auto;
-     border-spacng: 2em 0;
+     border-spacing: 2em 0;
  }
 
  div.markdown :global(th) {

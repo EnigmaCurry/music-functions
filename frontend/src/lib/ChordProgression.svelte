@@ -2,7 +2,7 @@
  import { onMount } from 'svelte'
  import { chord_progression } from '../stores/chord_progression.js'
  import { draw_keyboard } from '../piano_keyboard.js'
- import { getClosestWord } from '../string_util.js'
+ import { get_closest_word, get_next_word_position } from '../string_util.js'
  import * as Tone from 'tone'
  import { Piano } from '@tonejs/piano'
  import Markdown from './Markdown.svelte'
@@ -10,12 +10,13 @@
 
  var backslash_is_held = false;
  var shift_is_held = false;
+ var tab_is_held = false;
  var piano;
  var piano_keys_held = new Set();
  let current_chord = null;
 
  const chordCacheKey = "chord_progression/chord_info"
- async function getChordInfo(chord) {
+ async function get_chord_info(chord) {
      const key = chordCacheKey + "/" + chord
      const cachedInfo = sessionStorage.getItem(key)
      if (cachedInfo === "invalid") {
@@ -38,6 +39,22 @@
      }
  }
 
+ async function updateChord(cursor_position) {
+     let chord = get_closest_word($chord_progression, cursor_position)
+     if (!chord.length || chord == " "){
+         //Try adjacent word:
+         chord = get_closest_word($chord_progression, cursor_position-1)
+     }
+     const info = await get_chord_info(chord)
+     if (info === "invalid") {
+         current_chord = {chord: chord, valid: false}
+             draw_keyboard(keyboard_canvas)
+     } else {
+         current_chord = info
+         draw_keyboard(keyboard_canvas, current_chord.components_midi)
+     }
+ }
+
  async function handleInput(e) {
      if (e.code === "Backslash") {
          backslash_is_held = false;
@@ -48,21 +65,12 @@
          }
      } else if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
          shift_is_held = false
+     } else if (e.code === "Tab") {
+         tab_is_held = false
+         return
      }
      const cursor_position = e.target.selectionStart
-     let chord = getClosestWord($chord_progression, cursor_position)
-     if (!chord.length || chord == " "){
-         //Try adjacent word:
-         chord = getClosestWord($chord_progression, cursor_position-1)
-     }
-     const info = await getChordInfo(chord)
-     if (info === "invalid") {
-         current_chord = {chord: chord, valid: false}
-             draw_keyboard(keyboard_canvas)
-     } else {
-         current_chord = info
-         draw_keyboard(keyboard_canvas, current_chord.components_midi)
-     }
+     updateChord(cursor_position)
  }
 
  async function handleKeypress(e) {
@@ -80,7 +88,7 @@
          backslash_is_held = true
          let t = 0
          let note_delay = shift_is_held ? 0.35 : 0
-         console.log("playing chord:", current_chord.components_with_pitch)
+         console.debug("playing chord:", current_chord.chord, current_chord.components_with_pitch)
          for (let i=0; i<current_chord.components_with_pitch.length; i++){
              t = t + note_delay
              piano.keyDown({note:current_chord.components_with_pitch[i], time: "+"+t})
@@ -88,6 +96,15 @@
          }
      } else if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
          shift_is_held = true
+     } else if (e.code === "Tab" && e.target.id === "chords") {
+         e.preventDefault()
+         if (tab_is_held)
+             return
+         tab_is_held = true
+         let direction = 1
+         if (shift_is_held) direction = -1
+         e.target.selectionStart = e.target.selectionEnd = get_next_word_position($chord_progression, e.target.selectionStart, direction)
+         updateChord(e.target.selectionStart)
      }
  }
 
