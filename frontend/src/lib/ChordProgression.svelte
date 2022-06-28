@@ -15,9 +15,9 @@
  var piano_keys_held = new Set();
  let current_chord = null;
 
- const chordCacheKey = "chord_progression/chord_info"
+ const chord_cache_key = "chord_progression/chord_info"
  async function get_chord_info(chord) {
-     const key = chordCacheKey + "/" + chord
+     const key = chord_cache_key + "/" + chord
      const cachedInfo = sessionStorage.getItem(key)
      if (cachedInfo === "invalid") {
          return cachedInfo
@@ -55,14 +55,10 @@
      }
  }
 
- async function handleInput(e) {
+ async function handle_input(e) {
      if (e.code === "Backslash") {
          backslash_is_held = false;
-         if (piano != undefined){
-             for(let k of piano_keys_held)
-                 piano.keyUp({note: k})
-             piano_keys_held.clear()
-         }
+         release_piano_keys()
      } else if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
          shift_is_held = false
      } else if (e.code === "Tab") {
@@ -73,32 +69,45 @@
      updateChord(cursor_position)
  }
 
- async function handlePointer(e) {
+ async function handle_pointer(e) {
      const cursor_position = e.target.selectionStart
      updateChord(cursor_position)
  }
 
- async function handleKeypress(e) {
+ async function release_piano_keys() {
+     if (typeof(piano) != 'undefined'){
+         for(let k of piano_keys_held)
+             piano.keyUp({note: k})
+         piano_keys_held.clear()
+         console.debug("keys cleared")
+     }
+ }
+
+ async function play_chord() {
+     if (typeof(piano) === 'undefined') {
+         await Tone.start()
+         piano = new Piano({velocities: 1})
+         piano.toDestination()
+         await piano.load()
+     }
+     let t = 0
+     let note_delay = (shift_is_held && !tab_is_held) ? 0.35 : 0
+     release_piano_keys()
+     console.debug("playing chord:", current_chord.chord, current_chord.components_with_pitch)
+     for (let i=0; i<current_chord.components_with_pitch.length; i++){
+         t = t + note_delay
+         piano.keyDown({note:current_chord.components_with_pitch[i], time: "+"+t})
+         piano_keys_held.add(current_chord.components_with_pitch[i])
+     }
+ }
+
+ async function handle_keypress(e) {
      if (e.code === "Backslash") {
          e.preventDefault()
          if (backslash_is_held)
              return
-         if (piano === undefined) {
-             await Tone.start()
-             //synth = new Tone.PolySynth(Tone.Synth).toDestination();
-             piano = new Piano({velocities: 1})
-             piano.toDestination()
-             await piano.load()
-         }
          backslash_is_held = true
-         let t = 0
-         let note_delay = shift_is_held ? 0.35 : 0
-         console.debug("playing chord:", current_chord.chord, current_chord.components_with_pitch)
-         for (let i=0; i<current_chord.components_with_pitch.length; i++){
-             t = t + note_delay
-             piano.keyDown({note:current_chord.components_with_pitch[i], time: "+"+t})
-             piano_keys_held.add(current_chord.components_with_pitch[i])
-         }
+         await play_chord()
      } else if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
          shift_is_held = true
      } else if (e.code === "Tab" && e.target.id === "chords") {
@@ -109,7 +118,11 @@
          let direction = 1
          if (shift_is_held) direction = -1
          e.target.selectionStart = e.target.selectionEnd = get_next_word_position($chord_progression, e.target.selectionStart, direction)
-         updateChord(e.target.selectionStart)
+         await updateChord(e.target.selectionStart)
+         if (backslash_is_held) {
+             console.debug(current_chord.chord)
+             await play_chord()
+         }
      }
  }
 
@@ -124,7 +137,7 @@
 
 <form action="/api/chords/sequence">
     <div>
-        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handleInput} on:click={handleInput} on:keydown={handleKeypress} on:selectionchange={handlePointer} bind:value={$chord_progression} />
+        <textarea id="chords" name="chords" placeholder="Enter a chord sequence" spellcheck="false" on:keyup={handle_input} on:click={handle_input} on:keydown={handle_keypress} on:selectionchange={handle_pointer} bind:value={$chord_progression} />
     </div>
     <div id="chord_info">
         <canvas id="chord_keyboard" width="650" height="72">Your browser does not support the HTML5 canvas tag.</canvas><br/>

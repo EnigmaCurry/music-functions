@@ -1,20 +1,24 @@
  * Enter any sequence of chords recognized by
    [pychord](https://github.com/yuma-m/pychord) separated by spaces
    and/or newlines. (Reference these [chord
-   qualities](https://github.com/yuma-m/pychord/blob/main/pychord/constants/qualities.py).)
- * Each chord may be prefixed by a length. If omitted, a default
+   qualities](https://github.com/yuma-m/pychord/blob/main/pychord/constants/qualities.py)
+   defined in the source code.)
+ * Each chord may be prefixed by an integer length. If omitted, a default
    length of 4 beats will be used.
- * Chords may be modified with [a slash
+ * Chords may be modified with a [slash
    chord](https://en.wikipedia.org/wiki/Slash_chord) (eg. `C/E` or
-   `C/G`) or inverted (eg. `C/1`, `C/2`, `C/3` etc. for 1st, 2nd, and
-   3rd order inversions of `C`).
- * As you type any chord, or as you move the text input cursor over an
+   `C/G`) or [inverted](https://en.wikipedia.org/wiki/Inverted_chord)
+   (eg. `C/1`, `C/2`, `C/3` etc. for 1st, 2nd, and 3rd order
+   inversions of `C`).
+ * As you type a chord, or as you move the text input cursor over an
    existing chord, the component keys of that chord are shown on the
-   piano keyboard. Hold down `\` key (backslash) to play the
+   piano keyboard. Hold down the `\` key (backslash) to play the
    highlighted chord audio. Hold `shift` + `\` to play the chord
    arpeggiated.
  * Use the `Tab` key to cycle through each of the chords. Use
-     `shift` + `Tab` to cycle in the opposite direction.
+   `shift` + `Tab` to cycle in the opposite direction. If you hold
+   down `\` while cycling with `Tab`, the chords will be immediately
+   played.
  * Click the `Download MIDI` button to generate the MIDI file
    containing your entire chord progression.
 
