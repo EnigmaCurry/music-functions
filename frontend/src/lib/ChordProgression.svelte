@@ -78,7 +78,6 @@
     if (typeof piano != "undefined") {
       for (let k of piano_keys_held) piano.keyUp({ note: k });
       piano_keys_held.clear();
-      console.debug("keys cleared");
     }
   }
 
@@ -91,6 +90,17 @@
       current_chord.chord,
       current_chord.components_with_pitch
     );
+    if (note_delay === 0) {
+      // Add an extra bass note one octave below the root:
+      const octave = current_chord.components_with_pitch[0].match(/[0-9]$/)[0];
+      const n = current_chord.components[0] + (octave - 1);
+      piano.keyDown({
+        note: n,
+        velocity: 0.75,
+        time: "+0",
+      });
+      piano_keys_held.add(n);
+    }
     for (let i = 0; i < current_chord.components_with_pitch.length; i++) {
       t = t + note_delay;
       piano.keyDown({
@@ -122,7 +132,6 @@
       );
       await updateChord(e.target.selectionStart);
       if (backslash_is_held) {
-        console.debug(current_chord.chord);
         await play_chord();
       }
     }

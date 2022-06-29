@@ -40,7 +40,7 @@ services:
     volumes:
       - ${DEVELOPMENT_MOUNTED_VOLUME}/api/app:/code/app
 
-  salamander-piano-samples:
+  salamander-piano-samples-dev:
     build:
       context: https://github.com/EnigmaCurry/tonejs-piano.git#master
     container_name: salamander-piano-samples-dev

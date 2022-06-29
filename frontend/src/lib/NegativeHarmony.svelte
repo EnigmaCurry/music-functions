@@ -34,7 +34,7 @@
     ❌ Invalid MIDI file: {files.rejected[0].name}
   {/if}
   <a href="https://youtu.be/DnBr070vcNE?t=1m31s"
-    >Watch this video to learn about negative harmony.</a
+    ><br />Watch this video to learn about negative harmony.</a
   >
   <br />
   <br />
