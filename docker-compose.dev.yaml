@@ -14,7 +14,7 @@ services:
       - traefik-proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.music-functions-frontend-dev.rule=Host(`${DEVELOPMENT_DOMAIN}`)"
+      - "traefik.http.routers.music-functions-frontend-dev.rule=Host(`${DEVELOPMENT_DOMAIN}`) && !PathPrefix(`/api/`)"
       - "traefik.http.routers.music-functions-frontend-dev.entrypoints=websecure"
       - "traefik.http.routers.music-functions-frontend-dev.tls.certresolver=${ACME_CERT_RESOLVER}"
       - "traefik.http.middlewares.music-functions-dev-ipwhitelist.ipwhitelist.sourcerange=${DEVELOPER_IP_SOURCERANGE}"
@@ -36,6 +36,7 @@ services:
       - "traefik.http.routers.music-functions-api-dev.rule=Host(`${DEVELOPMENT_DOMAIN}`) && (PathPrefix(`/api/`) || Path(`/docs`) || Path(`/openapi.json`))"
       - "traefik.http.routers.music-functions-api-dev.entrypoints=websecure"
       - "traefik.http.routers.music-functions-api-dev.tls.certresolver=${ACME_CERT_RESOLVER}"
+      - "traefik.http.routers.music-functions-api-dev.middlewares=music-functions-dev-ipwhitelist@docker"
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
     volumes:
       - ${DEVELOPMENT_MOUNTED_VOLUME}/api/app:/code/app
@@ -56,3 +57,4 @@ services:
       - "traefik.http.routers.music-functions-salamander-dev.tls.certresolver=${ACME_CERT_RESOLVER}"
       - "traefik.http.middlewares.music-functions-salamander-strip-path-dev.stripprefix.prefixes=/samples/salamander-piano"
       - "traefik.http.routers.music-functions-salamander-dev.middlewares=music-functions-salamander-strip-path-dev@docker"
+      - "traefik.http.routers.music-functions-salamander-dev.middlewares=music-functions-dev-ipwhitelist@docker"

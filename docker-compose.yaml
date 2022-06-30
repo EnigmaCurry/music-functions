@@ -13,7 +13,7 @@ services:
       - traefik-proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.music-functions-frontend.rule=Host(`${PRODUCTION_DOMAIN}`)"
+      - "traefik.http.routers.music-functions-frontend.rule=Host(`${PRODUCTION_DOMAIN}`) && !PathPrefix(`/api/`)"
       - "traefik.http.routers.music-functions-frontend.entrypoints=websecure"
       - "traefik.http.routers.music-functions-frontend.tls.certresolver=${ACME_CERT_RESOLVER}"
 

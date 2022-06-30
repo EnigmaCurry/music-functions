@@ -92,14 +92,14 @@
     );
     if (note_delay === 0) {
       // Add an extra bass note one octave below the root:
-      const octave = current_chord.components_with_pitch[0].match(/[0-9]$/)[0];
-      const n = current_chord.components[0] + (octave - 1);
-      piano.keyDown({
-        note: n,
-        velocity: 0.75,
-        time: "+0",
-      });
-      piano_keys_held.add(n);
+      /* const octave = current_chord.components_with_pitch[0].match(/[0-9]$/)[0];
+       * const n = current_chord.components[0] + (octave - 1);
+       * piano.keyDown({
+       *   note: n,
+       *   velocity: 0.75,
+       *   time: "+0",
+       * });
+       * piano_keys_held.add(n); */
     }
     for (let i = 0; i < current_chord.components_with_pitch.length; i++) {
       t = t + note_delay;
@@ -143,7 +143,10 @@
     draw_keyboard(keyboard_canvas);
     if (typeof piano === "undefined") {
       await Tone.start();
-      piano = new Piano({ url: "/samples/salamander-piano/", velocities: 1 });
+      piano = new Piano({
+        url: "/samples/salamander-piano/",
+        velocities: 1,
+      });
       piano.toDestination();
       await piano.load();
     }

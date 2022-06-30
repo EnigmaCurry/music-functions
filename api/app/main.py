@@ -155,23 +155,34 @@ def isobar_scales(request: Request):
 
 
 chord_strip_length_re = re.compile("^[0-9]+")
+chord_transpose_octave_re = re.compile("([<>])([0-9]+)")
 
 
 @app.get("/api/info/chord")
 def chord_info(request: Request, chord: str):
+    octave = 3
+    # Strip optional length prefix:
+    chord = chord_strip_length_re.sub("", chord)
+    # Transpose:
+    transpose_m = chord_transpose_octave_re.search(chord)
+    if transpose_m:
+        octave += int(transpose_m.groups()[1]) * (
+            -1 if transpose_m.groups()[0] == "<" else 1
+        )
+    chord = chord_transpose_octave_re.sub("", chord)
+    # Get chord from pychord:
     try:
-        # Strip optional length prefix:
-        chord = chord_strip_length_re.sub("", chord)
         chord = Chord(chord)
-        quality_name = chord.quality.quality
     except ValueError as e:
         raise APIError("Invalid chord")
+    quality_name = chord.quality.quality
+    components_with_pitch = chord.components_with_pitch(octave)
     return {
         "chord": chord.chord,
         "valid": True,
         "components": chord.components(),
-        "components_with_pitch": chord.components_with_pitch(3),
-        "components_midi": [midi_keys[c] for c in chord.components_with_pitch(3)],
+        "components_with_pitch": components_with_pitch,
+        "components_midi": [midi_keys[c] for c in components_with_pitch],
         "on": chord.on,
         "root": chord.root,
         "quality": chord.quality.quality,
