@@ -6,12 +6,14 @@
   import LSystemMelody from "./lib/LSystemMelody.svelte";
 
   import Credits from "./lib/Credits.svelte";
+  import Glicol from "./lib/Glicol.svelte";
   import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
 
   const tabs = [
     "#chord-progressions",
     "#negative-harmony",
     "#every-beat",
+    "#glicol",
     "#credits",
   ];
 
@@ -33,6 +35,7 @@
       <Tab>Chord Progression</Tab>
       <Tab>Negative Harmony</Tab>
       <Tab>Every<br />Beat</Tab>
+      <Tab>DSP<br />Graph</Tab>
       <Tab>Credits</Tab>
     </TabList>
     <TabPanel>
@@ -43,6 +46,9 @@
     </TabPanel>
     <TabPanel>
       <EveryBeat />
+    </TabPanel>
+    <TabPanel>
+      <Glicol />
     </TabPanel>
     <TabPanel>
       <Credits />

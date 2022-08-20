@@ -17,6 +17,7 @@
   "dependencies": {
     "@tonejs/piano": "^0.2.1",
     "events": "^3.3.0",
+    "glicol": "^0.3.8",
     "svelte-file-dropzone": "github:EnigmaCurry/svelte-file-dropzone#name-prop",
     "svelte-markdown": "^0.2.2",
     "svelte-tabs": "github:enigmacurry/svelte-tabs#set-tab-index",
